@@ -43,7 +43,7 @@ module "aurora_serverless" {
 data "aws_caller_identity" "current" {}
 
 locals {
-  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}"
+  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}v2"
 }
 
 module "s3_bucket" {

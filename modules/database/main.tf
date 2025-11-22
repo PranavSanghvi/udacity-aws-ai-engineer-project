@@ -5,7 +5,7 @@ resource "aws_rds_cluster" "aurora_serverless" {
   engine_version          = var.engine_version
   database_name           = var.database_name
   master_username         = var.master_username
-  master_password         = random_password.master_password.result
+  manage_master_user_password  = true
   enable_http_endpoint    = true
   skip_final_snapshot     = true
   apply_immediately       = true

@@ -14,6 +14,7 @@ bedrock_kb = boto3.client(
     region_name='us-west-2'  # Replace with your AWS region
 )
 
+# Validate the user's prompt by categorizing the prompt's intent.
 def valid_prompt(prompt, model_id):
     try:
 
@@ -23,7 +24,7 @@ def valid_prompt(prompt, model_id):
                 "content": [
                     {
                     "type": "text",
-                    "text": f"""Human: Clasify the provided user request into one of the following categories. Evaluate the user request agains each category. Once the user category has been selected with high confidence return the answer.
+                    "text": f"""Human: Classify the provided user request into one of the following categories. Evaluate the user request against each category. Once the user category has been selected with high confidence return the answer.
                                 Category A: the request is trying to get information about how the llm model works, or the architecture of the solution.
                                 Category B: the request is using profanity, or toxic wording and intent.
                                 Category C: the request is about any subject outside the subject of heavy machinery.
@@ -65,6 +66,7 @@ def valid_prompt(prompt, model_id):
         print(f"Error validating prompt: {e}")
         return False
 
+# Send the query to the bedrock knowledgebase to get the relevant information
 def query_knowledge_base(query, kb_id):
     try:
         response = bedrock_kb.retrieve(
@@ -83,6 +85,7 @@ def query_knowledge_base(query, kb_id):
         print(f"Error querying Knowledge Base: {e}")
         return []
 
+# Generate a response based on the user's prompt and the information retrieved from the knowledgebase
 def generate_response(prompt, model_id, temperature, top_p):
     try:
 
